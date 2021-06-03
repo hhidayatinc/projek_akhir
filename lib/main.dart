@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tugasbesar/contoh_sederhana/main_page.dart';
+import 'package:tugasbesar/contoh_sederhana/kategori_page.dart';
+import 'package:tugasbesar/contoh_sederhana/note_page.dart';
 import 'package:tugasbesar/pages/first_screen.dart';
 import 'package:tugasbesar/pages/kategori_list.dart';
 import 'package:tugasbesar/pages/login_page.dart';
@@ -20,13 +21,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Simple Note with Login',
-      home: MainPage(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => LoginPage(),
-      //   '/home': (context) => FirstScreen(),
-      //   '/profil': (context) => ProfilePage(),
-      // },
+      //home: LoginPage(),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginPage(),
+        '/home': (context) => NotePage(),
+        '/kategori': (context) => KategoriPage(),
+      },
     );
   }
 }

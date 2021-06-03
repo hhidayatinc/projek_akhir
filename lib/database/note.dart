@@ -48,6 +48,7 @@ class Category extends StatelessWidget {
               SizedBox(
                 height: 40,
                 width: 60,
+                // ignore: deprecated_member_use
                 child: RaisedButton(
                     shape: CircleBorder(),
                     color: kPrimaryColor,
@@ -62,6 +63,7 @@ class Category extends StatelessWidget {
               SizedBox(
                 height: 40,
                 width: 60,
+                // ignore: deprecated_member_use
                 child: RaisedButton(
                     shape: CircleBorder(),
                     color: kPrimaryColor,

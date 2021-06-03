@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tugasbesar/contoh_sederhana/kategori_page.dart';
+import 'package:tugasbesar/contoh_sederhana/note_page.dart';
 import 'package:tugasbesar/helper/auth.dart';
 import 'package:tugasbesar/helper/auth_email.dart';
 import 'package:tugasbesar/helper/sign_in_google.dart';
@@ -86,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                     if (result != null) {
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
-                        return AddCategoryForm();
+                        return NotePage();
                       }));
                     }
                   });
@@ -225,7 +227,7 @@ class _LoginPageState extends State<LoginPage> {
                 email: _emailController.text, pass: _passController.text);
             if (result.user != null) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => new AddCategoryForm()));
+                  MaterialPageRoute(builder: (context) => new NotePage()));
             } else {
               showDialog(
                   context: context,

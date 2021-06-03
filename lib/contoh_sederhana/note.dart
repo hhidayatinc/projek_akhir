@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class Kategori extends StatelessWidget {
-  final String categoryName;
+class Note extends StatelessWidget {
+  final String category;
+  final String title;
   final String description;
   final Function onUpdate;
   final Function onDelete;
-  Kategori(this.categoryName, this.description, {this.onUpdate, this.onDelete});
+  Note(this.category,this.title, this.description, {this.onUpdate, this.onDelete});
 
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
@@ -28,18 +29,35 @@ class Kategori extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.5,
                 child: Text(
-                  categoryName,
+                  category,
                   style: TextStyle(
                       color: kPrimaryColor,
                       fontWeight: FontWeight.w600,
                       fontSize: 16),
                 ),
               ),
-              Text(description,
+              Text(
+                  title,
                   style: TextStyle(
                       color: kPrimaryColor,
                       fontWeight: FontWeight.w600,
-                      fontSize: 16))
+                      fontSize: 16),
+                ),
+                SizedBox(
+                width: MediaQuery.of(context).size.width * 0.5,
+                child: Text(
+                  description,
+                  style: TextStyle(
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16),
+                ),
+              ),
+              // Text(description,
+              //     style: TextStyle(
+              //         color: kPrimaryColor,
+              //         fontWeight: FontWeight.w600,
+              //         fontSize: 16))
             ],
           ),
           Row(
@@ -56,8 +74,8 @@ class Kategori extends StatelessWidget {
                           Icon(Icons.arrow_upward, color: kPrimaryLightColor),
                     ),
                     onPressed: () {
-                      if (onUpdate != null) onUpdate();
-                      //onUpdate();
+                      //if (onUpdate != null) onUpdate();
+                      onUpdate();
                     }),
               ),
               SizedBox(
