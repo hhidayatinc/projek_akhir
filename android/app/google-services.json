@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1016486600960",
+    "project_id": "projekakhir-29c0f",
+    "storage_bucket": "projekakhir-29c0f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016486600960:android:692325dd737d13376153e5",
+        "android_client_info": {
+          "package_name": "com.example.tugasbesar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016486600960-c5dopacmk8nqlnsfn3dmrcros0b0a1no.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tugasbesar",
+            "certificate_hash": "54897bfa63dd642ca19f0e6a9ccb9a670cc7ca83"
+          }
+        },
+        {
+          "client_id": "1016486600960-6b46mevv3er26edb3u03qt1tfq25dqpq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXtlDjMzbSldGO-FT_tXoQ9331z25VJ78"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1016486600960-6b46mevv3er26edb3u03qt1tfq25dqpq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
