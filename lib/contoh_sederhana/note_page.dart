@@ -10,6 +10,17 @@ class NotePage extends StatelessWidget {
   CollectionReference _note =
       FirebaseFirestore.instance.collection('note');
 
+static Stream<QuerySnapshot> getItems() {
+    FirebaseFirestore.instance
+    .collection('category')
+    .get()
+    .then((QuerySnapshot querySnapshot) {
+        querySnapshot.docs.forEach((doc) {
+            print(doc["categoryName"]);
+        });
+    });
+  }
+
   void clearInputText() {
     categoryController.text = "";
     titleController.text = "";

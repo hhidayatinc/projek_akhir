@@ -33,6 +33,7 @@ dependencies:
   flutter_svg: ^0.19.1
   cloud_firestore: ^1.0.1
   firebase_core: ^1.0.1
+  date_field: ^1.0.5
   
 
 dev_dependencies:

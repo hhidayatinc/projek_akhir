@@ -1,85 +1,72 @@
-import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Category extends StatelessWidget {
-  final String category;
-  final String noteName;
-  final String noteDesc;
-  final Function onUpdate;
-  final Function onDelete;
-  Category(this.category, this.noteName, this.noteDesc, {this.onUpdate, this.onDelete});
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+final CollectionReference _mainCollection = _firestore.collection('notes');
 
-  final kPrimaryColor = Colors.black;
-  final kPrimaryLightColor = Colors.white;
+class Notes {
+  
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-      padding: const EdgeInsets.all(5),
-      decoration: BoxDecoration(
-          border: Border.all(color: kPrimaryColor),
-          borderRadius: BorderRadius.circular(8)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width * 0.5,
-                child: Text(
-                  noteName,
-                  style: TextStyle(
-                      color: kPrimaryColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16),
-                ),
-              ),
-              Text(noteDesc,
-                  style: TextStyle(
-                      color: kPrimaryColor,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16))
-            ],
-          ),
-          Row(
-            children: [
-              SizedBox(
-                height: 40,
-                width: 60,
-                // ignore: deprecated_member_use
-                child: RaisedButton(
-                    shape: CircleBorder(),
-                    color: kPrimaryColor,
-                    child: Center(
-                      child:
-                          Icon(Icons.arrow_upward, color: kPrimaryLightColor),
-                    ),
-                    onPressed: () {
-                      if (onUpdate != null) onUpdate();
-                    }),
-              ),
-              SizedBox(
-                height: 40,
-                width: 60,
-                // ignore: deprecated_member_use
-                child: RaisedButton(
-                    shape: CircleBorder(),
-                    color: kPrimaryColor,
-                    child: Center(
-                      child:
-                          Icon(Icons.delete, color: kPrimaryLightColor),
-                    ),
-                    onPressed: () {
-                      if (onDelete != null) onDelete();
-                      //onDelete();
-                    }),
-              ),
-            ],
-          )
-        ],
-      ),
-    );
+  static Future<void> addContent({
+     String category,
+     String title,
+     String description,
+     String date,
+  }) async {
+    DocumentReference documentReferencer =
+        _mainCollection.doc().collection('contents').doc();
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "category": category,
+      "title": title,
+      "description": description,
+      "date": date,
+    };
+
+    await documentReferencer
+        .set(data)
+        .whenComplete(() => print("New note added to the database"))
+        .catchError((e) => print(e));
+  }
+
+  static Future<void> updateContent({
+    String category,
+     String title,
+     String description,
+     String date,
+     String docId,
+  }) async {
+    DocumentReference documentReferencer =
+        _mainCollection.doc().collection('contents').doc(docId);
+
+    Map<String, dynamic> data = <String, dynamic>{
+       "category": category,
+      "title": title,
+      "description": description,
+      "date": date,
+    };
+
+    await documentReferencer
+        .update(data)
+        .whenComplete(() => print("Note updated in the database"))
+        .catchError((e) => print(e));
+  }
+
+  static Stream<QuerySnapshot> readContent() {
+    CollectionReference notesContentCollection =
+        _mainCollection.doc().collection('contents');
+
+    return notesContentCollection.snapshots();
+  }
+
+  static Future<void> deleteContent({
+     String docId,
+  }) async {
+    DocumentReference documentReferencer =
+        _mainCollection.doc().collection('contents').doc(docId);
+
+    await documentReferencer
+        .delete()
+        .whenComplete(() => print('Note deleted from the database'))
+        .catchError((e) => print(e));
   }
 }
