@@ -7,6 +7,14 @@ import 'package:tugasbesar/contoh_sederhana/kategori.dart';
 import 'package:tugasbesar/drawer/drawer_google.dart';
 
 class AddCategoryForm extends StatefulWidget {
+   FocusNode focusCategoryName = FocusNode();
+   FocusNode focusDescription = FocusNode();
+
+   AddCategoryForm({
+    this.focusCategoryName,
+    this.focusDescription,
+  });
+
   @override
   AddCategoryFormState createState() => AddCategoryFormState();
 }
@@ -20,8 +28,6 @@ class AddCategoryFormState extends State<AddCategoryForm> {
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
   final _formCategoryKey = GlobalKey<FormState>();
-  final FocusNode focusCategoryName = FocusNode();
-  final FocusNode focusDescription = FocusNode();
   
   void clearInputText() {
     categoryNameController.text = "";
@@ -31,18 +37,7 @@ class AddCategoryFormState extends State<AddCategoryForm> {
   @override
   Widget build(BuildContext context) {
   Size size = MediaQuery.of(context).size;
-    return Scaffold(
-        appBar: AppBar(
-          title:
-               Text('Add Category'),
-          backgroundColor: kPrimaryColor,
-          leading: new IconButton(
-              icon: new Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-        ),
-        body: Form(
+    return  Form(
           key: _formCategoryKey,
           child: ListView(
             physics: BouncingScrollPhysics(),
@@ -69,7 +64,7 @@ class AddCategoryFormState extends State<AddCategoryForm> {
                       ),
                       child: TextFormField(
                         controller: categoryNameController,
-                        focusNode: focusCategoryName,
+                        focusNode: widget.focusCategoryName,
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
@@ -97,7 +92,7 @@ class AddCategoryFormState extends State<AddCategoryForm> {
                       ),
                       child: TextFormField(
                         controller: descriptionController,
-                        focusNode: focusDescription,
+                        focusNode: widget.focusDescription,
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
@@ -141,6 +136,6 @@ class AddCategoryFormState extends State<AddCategoryForm> {
               ))
             ],
           ),
-        ));
+        );
   }
 }

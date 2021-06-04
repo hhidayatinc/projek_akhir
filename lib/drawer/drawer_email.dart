@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tugasbesar/helper/auth_email.dart';
+import 'package:tugasbesar/service/auth_email.dart';
 import 'package:tugasbesar/pages/login_page.dart';
 
 class MainDrawerEmail extends StatelessWidget {

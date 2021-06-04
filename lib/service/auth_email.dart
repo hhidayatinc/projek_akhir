@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tugasbesar/helper/auth.dart';
+import 'package:tugasbesar/service/auth.dart';
 
 class AuthService {
   static FirebaseAuth _auth = FirebaseAuth.instance;

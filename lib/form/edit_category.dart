@@ -27,101 +27,97 @@ class EditCategoryFormState extends State<EditCategoryForm> {
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
   @override
-  void initState(){
-    categoryNameController = TextEditingController(text: widget.currentCategoryName);
-    descriptionController = TextEditingController(text: widget.currentDescription);
+  void initState() {
+    categoryNameController =
+        TextEditingController(text: widget.currentCategoryName);
+    descriptionController =
+        TextEditingController(text: widget.currentDescription);
     super.initState();
   }
+
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-          title:
-               Text('Edit Category'),
-          backgroundColor: kPrimaryColor,
-          leading: new IconButton(
-              icon: new Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              }),
-        ),
-        body: Form(
-          key: _editCategoryKey,
-          child: ListView(
-            physics: BouncingScrollPhysics(),
-            children: <Widget>[
-              SizedBox(height: 30,),
-              SvgPicture.asset(
+    return Form(
+      key: _editCategoryKey,
+      child: ListView(
+        physics: BouncingScrollPhysics(),
+        children: <Widget>[
+          SizedBox(
+            height: 30,
+          ),
+          SvgPicture.asset(
             "icons/add_category.svg",
             height: 200,
           ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 1.0),
-                child: Column(
-                  children: <Widget>[
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 10.0),
-                      decoration: BoxDecoration(
-                        color: kPrimaryLightColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: kPrimaryColor, width: 1),
-                      ),
-                      child: TextFormField(
-                        controller: categoryNameController,
-                        focusNode: widget.focusCategoryName,
-                        keyboardType: TextInputType.text,
-                        cursorColor: kPrimaryColor,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(5, 5.0, 5.0, 0),
-                            labelText: "Category Name",
-                            border: InputBorder.none),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please fill this section';
-                          }
-                          return null;
-                        },
-                        maxLines: 1,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 10.0,
-                    ),
-                    Container(
-                      padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 10.0),
-                      decoration: BoxDecoration(
-                        color: kPrimaryLightColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: kPrimaryColor, width: 1),
-                      ),
-                      child: TextFormField(
-                        controller: descriptionController,
-                        focusNode: widget.focusDescription,
-                        keyboardType: TextInputType.text,
-                        cursorColor: kPrimaryColor,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(5, 5.0, 5.0, 0),
-                            labelText: "Description",
-                            border: InputBorder.none),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please fill this section';
-                          }
-                          return null;
-                        },
-                        maxLines: null,
-                      ),
-                    ),
-                  ],
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 1.0),
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 10.0,
                 ),
-              ),
-              SizedBox(height: 60,),
-              Container(
-                padding: EdgeInsets.all(20),
-                  child: SizedBox(
+                Container(
+                  padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 10.0),
+                  decoration: BoxDecoration(
+                    color: kPrimaryLightColor,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: kPrimaryColor, width: 1),
+                  ),
+                  child: TextFormField(
+                    controller: categoryNameController,
+                    focusNode: widget.focusCategoryName,
+                    keyboardType: TextInputType.text,
+                    cursorColor: kPrimaryColor,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(5, 5.0, 5.0, 0),
+                        labelText: "Category Name",
+                        border: InputBorder.none),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please fill this section';
+                      }
+                      return null;
+                    },
+                    maxLines: 1,
+                  ),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 10.0),
+                  decoration: BoxDecoration(
+                    color: kPrimaryLightColor,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: kPrimaryColor, width: 1),
+                  ),
+                  child: TextFormField(
+                    controller: descriptionController,
+                    focusNode: widget.focusDescription,
+                    keyboardType: TextInputType.text,
+                    cursorColor: kPrimaryColor,
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.fromLTRB(5, 5.0, 5.0, 0),
+                        labelText: "Description",
+                        border: InputBorder.none),
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Please fill this section';
+                      }
+                      return null;
+                    },
+                    maxLines: null,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SizedBox(
+            height: 60,
+          ),
+          Container(
+              padding: EdgeInsets.all(20),
+              child: SizedBox(
                 width: MediaQuery.of(context).size.width - 20,
                 child: RawMaterialButton(
                     padding: EdgeInsets.symmetric(vertical: 20.0),
@@ -132,17 +128,16 @@ class EditCategoryFormState extends State<EditCategoryForm> {
                         borderRadius: BorderRadius.circular(30.0)),
                     elevation: 5.0,
                     fillColor: kPrimaryColor,
-                    onPressed: ()async{
+                    onPressed: () async {
                       await Category.updateItem(
-                        docId: widget.documentId,
-                        categoryName: categoryNameController.text,
-                        description: descriptionController.text
-                      );
+                          docId: widget.documentId,
+                          categoryName: categoryNameController.text,
+                          description: descriptionController.text);
                       Navigator.of(context).pop();
                     }),
               ))
-            ],
-          ),),
+        ],
+      ),
     );
   }
 }

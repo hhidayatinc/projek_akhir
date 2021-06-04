@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tugasbesar/drawer/drawer_email.dart';
-import 'package:tugasbesar/helper/auth_email.dart';
+import 'package:tugasbesar/service/auth_email.dart';
 import 'package:tugasbesar/drawer/drawer_google.dart';
 import 'package:tugasbesar/pages/login_page.dart';
 

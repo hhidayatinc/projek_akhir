@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tugasbesar/helper/auth.dart';
-import 'package:tugasbesar/helper/auth_email.dart';
+import 'package:tugasbesar/service/auth.dart';
+import 'package:tugasbesar/service/auth_email.dart';
 import 'package:tugasbesar/pages/login_page.dart';
 import 'package:tugasbesar/pages/profil_page.dart';
 
