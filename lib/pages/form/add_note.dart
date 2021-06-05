@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:date_field/date_field.dart';
+import 'package:tugasbesar/database/category.dart';
 import 'package:tugasbesar/database/note.dart';
 
 class AddNoteForm extends StatefulWidget {
@@ -27,10 +29,36 @@ class AddNoteFormState extends State<AddNoteForm> {
   DateTime _chooseDate = DateTime.now();
   // CollectionReference _category =
   //     FirebaseFirestore.instance.collection('category');
-
+  
+  // List <Category> data;
+  // List<String> dataText;
+  // int index = 0;
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
   final _formNoteKey = GlobalKey<FormState>();
+  
+  // Future<void> readData() async {
+  //   FirebaseFirestore.instance.collection("notes").doc().collection("categorys").get().then((QuerySnapshot querySnapshot){
+  //     querySnapshot.docs.forEach((doc) {
+  //       data.add(doc["categoryName"]);
+  //       print(doc["categoryName"]);
+  //       for (int i = 0; i<data.length; i++){
+  //         dataText.add(data[i].toString());
+  //       }
+  //      });
+  //   });
+
+  // }
+  
+  // Future<void> readData({
+  //   String uid,
+  // }) async {
+  //   FirebaseFirestore.instance.collection('categorys/').get().then((value) {
+  //     value.docs.forEach((element) {
+  //       data.add(element['idDocument']);
+  //      });
+  //   });
+  // }
 
   // void clearInputText() {
   //   categoryController.text = "";
@@ -41,6 +69,10 @@ class AddNoteFormState extends State<AddNoteForm> {
   
   
   @override
+  // void initState(){
+  //   super.initState();
+  //   readData();
+  // }
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
     return Form(
@@ -70,7 +102,21 @@ class AddNoteFormState extends State<AddNoteForm> {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: kPrimaryColor, width: 1),
                       ),
-                      child: TextFormField(
+                      child: 
+                      // DropdownButton(
+                      //   items: dataText.map((String value) {
+                      //     return DropdownMenuItem(value: value, child: Text(value),
+                      //     );
+                      //   }).toList(),
+                      //   value: dataText[index],
+                      //   onChanged: (String value){
+                      //     int i = dataText.indexOf(value);
+                      //     setState(() {
+                      //       index = i;
+                      //     });
+                      //   },
+                      // ),
+                      TextFormField(
                         controller: categoryController,
                         focusNode: widget.focusCategory,
                         keyboardType: TextInputType.text,

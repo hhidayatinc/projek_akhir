@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugasbesar/pages/form/add_note.dart';
 import 'package:tugasbesar/pages/login_regis/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tugasbesar/pages/screen_category/dashboard.dart';
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Simple Note with Login',
+      //home: AddNoteForm(),
       initialRoute: '/',
       routes: {
         '/': (context) => LoginPage(),
