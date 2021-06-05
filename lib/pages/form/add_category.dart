@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tugasbesar/database/category.dart';
-import 'package:tugasbesar/contoh_sederhana/kategori.dart';
-import 'package:tugasbesar/drawer/drawer_google.dart';
 
 class AddCategoryForm extends StatefulWidget {
    FocusNode focusCategoryName = FocusNode();
@@ -22,22 +19,14 @@ class AddCategoryForm extends StatefulWidget {
 class AddCategoryFormState extends State<AddCategoryForm> {
   final TextEditingController categoryNameController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
-  // CollectionReference _category =
-  //     FirebaseFirestore.instance.collection('category');
 
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
   final _formCategoryKey = GlobalKey<FormState>();
-  
-  void clearInputText() {
-    categoryNameController.text = "";
-    descriptionController.text = "";
-  }
 
   @override
   Widget build(BuildContext context) {
-  Size size = MediaQuery.of(context).size;
-    return  Form(
+  return  Form(
           key: _formCategoryKey,
           child: ListView(
             physics: BouncingScrollPhysics(),
@@ -130,7 +119,6 @@ class AddCategoryFormState extends State<AddCategoryForm> {
                         categoryName : categoryNameController.text,
                         description: descriptionController.text
                       );
-                      clearInputText();
                       Navigator.of(context).pop();
                     }),
               ))

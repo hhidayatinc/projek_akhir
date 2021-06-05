@@ -2,10 +2,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:date_field/date_field.dart';
-import 'package:tugasbesar/contoh_sederhana/note.dart';
 import 'package:tugasbesar/database/note.dart';
 
 class AddNoteForm extends StatefulWidget {
+  FocusNode focusCategory = FocusNode();
+  FocusNode focusTitle = FocusNode();
+  FocusNode focusDesc = FocusNode();
+  FocusNode focusDate = FocusNode();
+
+  AddNoteForm({
+    this.focusCategory,
+    this.focusTitle,
+    this.focusDesc,
+    this.focusDate
+  });
   @override
   AddNoteFormState createState() => AddNoteFormState();
 }
@@ -21,17 +31,15 @@ class AddNoteFormState extends State<AddNoteForm> {
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
   final _formNoteKey = GlobalKey<FormState>();
-  final FocusNode focusCategory = FocusNode();
-  final FocusNode focusTitle = FocusNode();
-  final FocusNode focusDesc = FocusNode();
 
-  void clearInputText() {
-    categoryController.text = "";
-    titleController.text = "";
-    descController.text = "";
-    _chooseDate == null;
-  }
-
+  // void clearInputText() {
+  //   categoryController.text = "";
+  //   titleController.text = "";
+  //   descController.text = "";
+  //   _chooseDate == null;
+  // }
+  
+  
   @override
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
@@ -40,9 +48,9 @@ class AddNoteFormState extends State<AddNoteForm> {
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: <Widget>[
-              SizedBox(
-                height: 30,
-              ),
+              // SizedBox(
+              //   height: 30,
+              // ),
               SvgPicture.asset(
                 "icons/add_note.svg",
                 height: 150,
@@ -64,7 +72,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                       ),
                       child: TextFormField(
                         controller: categoryController,
-                        focusNode: focusCategory,
+                        focusNode: widget.focusCategory,
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
@@ -92,7 +100,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                       ),
                       child: TextFormField(
                         controller: titleController,
-                        focusNode: focusTitle,
+                        focusNode: widget.focusTitle,
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
@@ -105,7 +113,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                           }
                           return null;
                         },
-                        maxLines: null,
+                        maxLines: 1,
                       ),
                     ),
                     SizedBox(height: 10),
@@ -118,7 +126,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                       ),
                       child: TextFormField(
                         controller: descController,
-                        focusNode: focusDesc,
+                        focusNode: widget.focusDesc,
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
@@ -181,7 +189,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                               title: titleController.text,
                               description: descController.text,
                               date: _chooseDate.toString());
-                          clearInputText();
+                         
                           Navigator.of(context).pop();
                         }),
                   ))

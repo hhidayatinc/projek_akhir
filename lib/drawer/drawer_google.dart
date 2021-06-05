@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:tugasbesar/service/sign_in_google.dart';
-import 'package:tugasbesar/pages/login_page.dart';
+import 'package:tugasbesar/pages/login_regis/login_page.dart';
 
 class MainDrawer extends StatelessWidget {
    MainDrawer({
@@ -21,19 +21,19 @@ class MainDrawer extends StatelessWidget {
         title: Text("Note & Wishlist"),
         subtitle: Text(_auth.currentUser.email),
       ),
-      // ListTile(
-      //     leading: Icon(Icons.home),
-      //     title: Text("Home"),
-      //     onTap: () {
-      //        Navigator.pushNamed(context, '/home');
-      //     }),
-      // ListTile(
-      //   leading: Icon(Icons.category),
-      //   title: Text("Kategori"),
-      //   onTap: () {
-      //      Navigator.pushNamed(context, '/kategori');
-      //   },
-      // ),
+      ListTile(
+          leading: Icon(Icons.home),
+          title: Text("Home"),
+          onTap: () {
+             Navigator.pushNamed(context, '/home');
+          }),
+      ListTile(
+        leading: Icon(Icons.category),
+        title: Text("Kategori"),
+        onTap: () {
+           Navigator.pushNamed(context, '/kategori');
+        },
+      ),
       ListTile(
         leading: Icon(Icons.logout),
         title: Text("Logout"),

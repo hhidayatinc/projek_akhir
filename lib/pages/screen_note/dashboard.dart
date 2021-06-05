@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:tugasbesar/drawer/drawer_google.dart';
-import 'package:tugasbesar/list/kategori_list.dart';
-import 'package:tugasbesar/screen/add_screen.dart';
+import 'package:tugasbesar/pages/list/note_list.dart';
+import 'package:tugasbesar/pages/screen_note/add_screen.dart';
 
-class DashboardScreen extends StatefulWidget {
+class DashboardNoteScreen extends StatefulWidget {
   @override
-  _DashboardScreenState createState() => _DashboardScreenState();
+  _DashboardNoteScreenState createState() => _DashboardNoteScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardNoteScreenState extends State<DashboardNoteScreen> {
  
 
   @override
@@ -18,13 +18,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.black,
-          title: Text("Category"),
+          title: Text("Note"),
         ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => AddScreen(),
+              builder: (context) => AddNoteScreen(),
             ),
           );
         },
@@ -36,13 +36,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
       ),
       body: SafeArea(
-        child: Padding(
+        child: Container(
           padding: const EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
-            bottom: 20.0,
+            left: 10.0,
+            right: 10.0,
+            top: 10.0,
           ),
-          child: CategoryList(),
+          child: NoteList(),
         ),
       ),
       drawer: MainDrawer(),

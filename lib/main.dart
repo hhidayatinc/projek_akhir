@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:tugasbesar/contoh_sederhana/kategori_page.dart';
-import 'package:tugasbesar/contoh_sederhana/note_page.dart';
-import 'package:tugasbesar/form/add_note.dart';
-
-import 'package:tugasbesar/list/kategori_list.dart';
-import 'package:tugasbesar/pages/login_page.dart';
+import 'package:tugasbesar/pages/login_regis/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:tugasbesar/form/add_category.dart';
-import 'package:tugasbesar/screen/dashboard.dart';
+import 'package:tugasbesar/pages/screen_category/dashboard.dart';
+import 'package:tugasbesar/pages/screen_note/dashboard.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,17 +17,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Simple Note with Login',
-      home: 
-      //DashboardScreen()
-      LoginPage(),
-      //AddNoteForm(),
-      //AddCategoryForm()
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => LoginPage(),
-      //   '/home': (context) => NotePage(),
-      //   '/kategori': (context) => KategoriPage(),
-      // },
+      initialRoute: '/',
+      routes: {
+        '/': (context) => LoginPage(),
+        '/home': (context) => DashboardNoteScreen(),
+        '/kategori': (context) => DashboardScreen(),
+      },
     );
   }
 }
