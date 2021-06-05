@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:tugasbesar/screen/dashboard.dart';
 import 'package:tugasbesar/service/auth.dart';
 import 'package:tugasbesar/service/auth_email.dart';
 import 'package:tugasbesar/pages/login_page.dart';
-import 'package:tugasbesar/pages/profil_page.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -164,7 +165,7 @@ class _RegisterPageState extends State<RegisterPage> {
               Navigator.push(
                   context,
                   new MaterialPageRoute(
-                      builder: (context) => new LoginPage()));
+                      builder: (context) => new DashboardScreen()));
             } else {
               showDialog(
                   context: context,
@@ -190,32 +191,32 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Widget _login(){
+  Widget _login() {
     return Padding(
-              padding: const EdgeInsets.only(left: 10, top: 10),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    "Have account ?",
-                    style: TextStyle(color: kPrimaryColor, fontSize: 16),
-                  ),
-                  SizedBox(height: 5),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginPage()));
-                    },
-                    child: Text(
-                      "Login Here",
-                      style: TextStyle(
-                          color: kPrimaryColor, fontWeight: FontWeight.w700, fontSize: 16),
-                    ),
-                  ),
-                ],
-              ),
-              );
+      padding: const EdgeInsets.only(left: 10, top: 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            "Have account ?",
+            style: TextStyle(color: kPrimaryColor, fontSize: 16),
+          ),
+          SizedBox(height: 5),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
+            },
+            child: Text(
+              "Login Here",
+              style: TextStyle(
+                  color: kPrimaryColor,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 16),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

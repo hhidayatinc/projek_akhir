@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tugasbesar/drawer/drawer_google.dart';
 import 'package:tugasbesar/list/kategori_list.dart';
 import 'package:tugasbesar/screen/add_screen.dart';
 
@@ -44,6 +45,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: CategoryList(),
         ),
       ),
+      drawer: MainDrawer(),
     );
   }
 }

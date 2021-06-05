@@ -1,13 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:tugasbesar/contoh_sederhana/kategori_page.dart';
 import 'package:tugasbesar/contoh_sederhana/note_page.dart';
+import 'package:tugasbesar/database/category.dart';
+import 'package:tugasbesar/screen/dashboard.dart';
 import 'package:tugasbesar/service/auth.dart';
 import 'package:tugasbesar/service/auth_email.dart';
 import 'package:tugasbesar/service/sign_in_google.dart';
-import 'package:tugasbesar/pages/first_screen.dart';
+
 import 'package:tugasbesar/form/add_category.dart';
-import 'package:tugasbesar/pages/profil_page.dart';
+
 import 'package:tugasbesar/pages/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,12 +22,15 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _passwordFocusNode = FocusNode();
+  FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   var authHandler = new AuthService();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
   bool _isHidePass = true;
-
+  User user;
   void _togglePasswordvisibility() {
     setState(() {
       _isHidePass = !_isHidePass;
@@ -32,6 +39,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    //    FirebaseFirestore firestrore = FirebaseFirestore.instance;
+    // CollectionReference users = firestrore.collection('users');
     Size size = MediaQuery.of(context).size;
     return Scaffold(
         body: SingleChildScrollView(
@@ -86,9 +95,10 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () {
                   signInWithGoogle().then((result) {
                     if (result != null) {
+                      Category.userUid = _auth.currentUser.uid;
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
-                        return NotePage();
+                        return DashboardScreen();
                       }));
                     }
                   });
@@ -149,6 +159,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: TextFormField(
                 controller: _emailController,
+                focusNode: _emailFocusNode,
                 keyboardType: TextInputType.emailAddress,
                 cursorColor: kPrimaryColor,
                 decoration: InputDecoration(
@@ -177,6 +188,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               child: TextFormField(
                 controller: _passController,
+                focusNode: _passwordFocusNode,
                 obscureText: _isHidePass,
                 cursorColor: kPrimaryColor,
                 decoration: InputDecoration(
@@ -226,8 +238,9 @@ class _LoginPageState extends State<LoginPage> {
             SignInSignUpResult result = await AuthService.signInWithEmail(
                 email: _emailController.text, pass: _passController.text);
             if (result.user != null) {
+              Category.userUid = _auth.currentUser.uid;
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => new NotePage()));
+                  MaterialPageRoute(builder: (context) => new DashboardScreen()));
             } else {
               showDialog(
                   context: context,

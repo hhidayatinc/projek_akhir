@@ -4,16 +4,16 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('notes');
 
 class Notes {
-  
-
+   static String userUid;
   static Future<void> addContent({
      String category,
      String title,
      String description,
      String date,
+     
   }) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc().collection('contents').doc();
+        _mainCollection.doc(userUid).collection('contents').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
       "category": category,
@@ -36,7 +36,7 @@ class Notes {
      String docId,
   }) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc().collection('contents').doc(docId);
+        _mainCollection.doc(userUid).collection('contents').doc(docId);
 
     Map<String, dynamic> data = <String, dynamic>{
        "category": category,
@@ -53,7 +53,7 @@ class Notes {
 
   static Stream<QuerySnapshot> readContent() {
     CollectionReference notesContentCollection =
-        _mainCollection.doc().collection('contents');
+        _mainCollection.doc(userUid).collection('contents');
 
     return notesContentCollection.snapshots();
   }
@@ -62,7 +62,7 @@ class Notes {
      String docId,
   }) async {
     DocumentReference documentReferencer =
-        _mainCollection.doc().collection('contents').doc(docId);
+        _mainCollection.doc(userUid).collection('contents').doc(docId);
 
     await documentReferencer
         .delete()

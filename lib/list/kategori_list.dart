@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:tugasbesar/database/category.dart';
 import 'package:tugasbesar/form/add_category.dart';
 import 'package:tugasbesar/form/edit_category.dart';
+import 'package:tugasbesar/screen/edit_screen.dart';
 
 class CategoryList extends StatelessWidget {
   final kPrimaryColor = Colors.black;
@@ -25,59 +26,58 @@ class CategoryList extends StatelessWidget {
                 String title = categoryInfo['categoryName'];
                 String description = categoryInfo['description'];
 
-                return Ink(
-                  decoration: BoxDecoration(
-                    color: kPrimaryLightColor,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: kPrimaryColor, width: 1),
-                  ),
-                  child: Card(
+                return  Card(
+                  margin: EdgeInsets.only(top: 20),
                     color: kPrimaryLightColor,
                     elevation: 3.0,
                     child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundColor: kPrimaryColor,
-                        child: Icon(
-                          Icons.category,
-                          color: kPrimaryLightColor,
-                        ),
-                      ),
-                      title: Container(
-                        padding: EdgeInsets.only(right: 10),
-                        child: Text(
-                          title,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 17),
-                        ),
-                      ),
-                      subtitle: Column(
-                        crossAxisAlignment:
-                            CrossAxisAlignment.start, //horizontal
-                        mainAxisAlignment: MainAxisAlignment.start, //vertical
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(top: 5),
-                            child: Text(
-                              description,
-                              style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w700),
-                            ),
+                        leading: CircleAvatar(
+                          backgroundColor: kPrimaryColor,
+                          child: Icon(
+                            Icons.category,
+                            color: kPrimaryLightColor,
                           ),
-                        ],
-                      ),
-                      trailing: GestureDetector(
-                        //widget untuk mendeteksi sentuhan
-                        child: Icon(Icons.delete),
-                        onTap: () async {
-                          await Category.deleteItem(docId: docID);
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ),
-                  ),
+                        ),
+                        title: Container(
+                          padding: EdgeInsets.only(right: 10),
+                          child: Text(
+                            title,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 17),
+                          ),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start, //horizontal
+                          mainAxisAlignment: MainAxisAlignment.start, //vertical
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(top: 5),
+                              child: Text(
+                                description,
+                                style: TextStyle(
+                                    fontSize: 15, fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ],
+                        ),
+                        trailing: GestureDetector(
+                          //widget untuk mendeteksi sentuhan
+                          child: Icon(Icons.delete),
+                          onTap: () async {
+                            await Category.deleteItem(docId: docID);
+                          },
+                        ),
+                        onTap: () =>
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => EditScreen(
+                                currentName: title,
+                                currentDesc: description,
+                                documentId: docID,
+                              ),
+                            ))),
+                
                 );
-              
-              
               });
         }
       },

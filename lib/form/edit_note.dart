@@ -1,42 +1,56 @@
-import 'package:flutter/cupertino.dart';
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:date_field/date_field.dart';
-import 'package:tugasbesar/contoh_sederhana/note.dart';
 import 'package:tugasbesar/database/note.dart';
 
-class AddNoteForm extends StatefulWidget {
+class EditNoteForm extends StatefulWidget {
+  final FocusNode focusCategory;
+  final FocusNode focusTitle;
+  final FocusNode focusDesc;
+   final FocusNode focusDate;
+  final String currentCategory;
+  final String currentTitle;
+  final String currentDesc;
+  final String currentDate;
+  final String documentId;
+
+  const EditNoteForm({
+    this.focusCategory,
+    this.focusTitle,
+    this.focusDesc,
+    this.focusDate,
+    this.currentCategory,
+    this.currentTitle,
+    this.currentDesc,
+    this.currentDate,
+    this.documentId,
+  });
   @override
-  AddNoteFormState createState() => AddNoteFormState();
-}
-
-class AddNoteFormState extends State<AddNoteForm> {
-  final TextEditingController categoryController = TextEditingController();
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descController = TextEditingController();
+  EditNoteFormState createState() => EditNoteFormState();
+  }
+  
+  class EditNoteFormState extends State<EditNoteForm> {
+    final _editNoteKey = GlobalKey<FormState>();
+  TextEditingController categoryController = TextEditingController();
+  TextEditingController titleController = TextEditingController();
+  TextEditingController descController = TextEditingController();
   DateTime _chooseDate = DateTime.now();
-  // CollectionReference _category =
-  //     FirebaseFirestore.instance.collection('category');
-
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
-  final _formNoteKey = GlobalKey<FormState>();
-  final FocusNode focusCategory = FocusNode();
-  final FocusNode focusTitle = FocusNode();
-  final FocusNode focusDesc = FocusNode();
-
-  void clearInputText() {
-    categoryController.text = "";
-    titleController.text = "";
-    descController.text = "";
-    _chooseDate == null;
-  }
-
   @override
+  void initState() {
+    categoryController =
+        TextEditingController(text: widget.currentCategory);
+        titleController =
+        TextEditingController(text: widget.currentTitle);
+    descController =
+        TextEditingController(text: widget.currentDesc);
+        
+    super.initState();
+  }
   Widget build(BuildContext context) {
-    //Size size = MediaQuery.of(context).size;
     return Form(
-          key: _formNoteKey,
+          key: _editNoteKey,
           child: ListView(
             physics: BouncingScrollPhysics(),
             children: <Widget>[
@@ -64,7 +78,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                       ),
                       child: TextFormField(
                         controller: categoryController,
-                        focusNode: focusCategory,
+                        focusNode: widget.focusCategory,
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
@@ -92,7 +106,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                       ),
                       child: TextFormField(
                         controller: titleController,
-                        focusNode: focusTitle,
+                        focusNode: widget.focusTitle,
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
@@ -118,7 +132,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                       ),
                       child: TextFormField(
                         controller: descController,
-                        focusNode: focusDesc,
+                        focusNode: widget.focusDesc,
                         keyboardType: TextInputType.text,
                         cursorColor: kPrimaryColor,
                         decoration: InputDecoration(
@@ -168,7 +182,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                     width: MediaQuery.of(context).size.width - 20,
                     child: RawMaterialButton(
                         padding: EdgeInsets.symmetric(vertical: 20.0),
-                        child: Text("Add data",
+                        child: Text("Edit data",
                             style: TextStyle(
                                 color: kPrimaryLightColor, fontSize: 18.0)),
                         shape: RoundedRectangleBorder(
@@ -176,12 +190,13 @@ class AddNoteFormState extends State<AddNoteForm> {
                         elevation: 5.0,
                         fillColor: kPrimaryColor,
                         onPressed: () async {
-                          await Notes.addContent(
+                          await Notes.updateContent(
+                            docId: widget.documentId,
                               category: categoryController.text,
                               title: titleController.text,
                               description: descController.text,
                               date: _chooseDate.toString());
-                          clearInputText();
+                          
                           Navigator.of(context).pop();
                         }),
                   ))
