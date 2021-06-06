@@ -76,12 +76,25 @@ class NoteList extends StatelessWidget {
                       ],
                     ),
                     trailing: GestureDetector(
-                      //widget untuk mendeteksi sentuhan
-                      child: Icon(Icons.delete),
-                      onTap: () async {
-                        await Notes.deleteContent(docId: docID);
-                      },
-                    ),
+                        //widget untuk mendeteksi sentuhan
+                        child: Icon(Icons.delete),
+                        onTap: ()  {
+                          showDialog(context: context, builder:(context) => AlertDialog(
+                            title : Text("Delete"),
+                            content: Text("Are you sure to delete this note? "),
+                            actions: <Widget>[
+                              FlatButton(onPressed: () {
+                                Navigator.pop(context);
+                              }, child: Text("Cancel")),
+                              FlatButton(onPressed: () async{
+                                await Notes.deleteContent(docId: docID);
+                                Navigator.pop(context);
+                              }, child: Text("Yes"))
+                            ],
+                          ));
+                          
+                        },
+                      ),
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EditNoteScreen(
                               currentCategory: category,

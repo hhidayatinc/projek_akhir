@@ -62,8 +62,21 @@ class CategoryList extends StatelessWidget {
                       trailing: GestureDetector(
                         //widget untuk mendeteksi sentuhan
                         child: Icon(Icons.delete),
-                        onTap: () async {
-                          await Category.deleteItem(docId: docID);
+                        onTap: ()  {
+                          showDialog(context: context, builder:(context) => AlertDialog(
+                            title : Text("Delete"),
+                            content: Text("Are you sure to delete this category ? "),
+                            actions: <Widget>[
+                              FlatButton(onPressed: () {
+                                Navigator.pop(context);
+                              }, child: Text("Cancel")),
+                              FlatButton(onPressed: () async{
+                                await Category.deleteItem(docId: docID);
+                                Navigator.pop(context);
+                              }, child: Text("Yes"))
+                            ],
+                          ));
+                          
                         },
                       ),
                       onTap: () => Navigator.of(context).push(MaterialPageRoute(
