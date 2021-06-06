@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:tugasbesar/pages/screen_category/dashboard.dart';
+import 'package:tugasbesar/database/category.dart';
+import 'package:tugasbesar/database/note.dart';
+import 'package:tugasbesar/pages/screen_note/dashboard.dart';
 import 'package:tugasbesar/service/auth.dart';
 import 'package:tugasbesar/service/auth_email.dart';
 import 'package:tugasbesar/pages/login_regis/login_page.dart';
@@ -12,8 +14,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  // String _email;
-  // String _password;
+  FirebaseAuth _auth = FirebaseAuth.instance;
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
   final _formKey = GlobalKey<FormState>();
@@ -27,19 +28,6 @@ class _RegisterPageState extends State<RegisterPage> {
       _isHidePass = !_isHidePass;
     });
   }
-
-  // Future<void> _createUser() async {
-  //   await Firebase.initializeApp();
-  //   try {
-  //     UserCredential userCredential = await FirebaseAuth.instance
-  //         .createUserWithEmailAndPassword(email: _email, password: _password);
-  //     print("User : $userCredential");
-  //   } on FirebaseAuthException catch (e) {
-  //     print("Error : $e");
-  //   } catch (e) {
-  //     print("Error : $e");
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -162,10 +150,12 @@ class _RegisterPageState extends State<RegisterPage> {
             SignInSignUpResult result = await AuthService.createUser(
                 email: _emailController.text, pass: _passController.text);
             if (result.user != null) {
+              Notes.userUid = _auth.currentUser.uid;
+              Category.userUid = _auth.currentUser.uid;
               Navigator.push(
                   context,
                   new MaterialPageRoute(
-                      builder: (context) => new DashboardScreen()));
+                      builder: (context) => new DashboardNoteScreen()));
             } else {
               showDialog(
                   context: context,

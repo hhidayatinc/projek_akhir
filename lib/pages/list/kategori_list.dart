@@ -9,7 +9,8 @@ class CategoryList extends StatelessWidget {
   final kPrimaryLightColor = Colors.white;
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    return Container(
+      child: StreamBuilder<QuerySnapshot>(
       stream: Category.readItems(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -76,6 +77,6 @@ class CategoryList extends StatelessWidget {
               });
         }
       },
-    );
+    ));
   }
 }

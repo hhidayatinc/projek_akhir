@@ -8,7 +8,8 @@ class NoteList extends StatelessWidget {
   final kPrimaryLightColor = Colors.white;
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
+    return Container(
+      child: StreamBuilder<QuerySnapshot>(
       stream: Notes.readContent(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
@@ -94,6 +95,6 @@ class NoteList extends StatelessWidget {
               });
         }
       },
-    );
+    ));
   }
 }

@@ -21,7 +21,6 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode _passwordFocusNode = FocusNode();
   FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-  var authHandler = new AuthService();
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passController = new TextEditingController();
   bool _isHidePass = true;
