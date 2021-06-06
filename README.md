@@ -1,6 +1,6 @@
-# tugasbesar
+# tugasbesa
 
-A new Flutter project.
+Firebase Authentication with Cloud Firestore
 
 ## Getting Started
 
