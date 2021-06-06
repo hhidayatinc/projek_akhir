@@ -1,6 +1,6 @@
-# tugasbesa
+# Firebase Authentication with Cloud Firestore
 
-Firebase Authentication with Cloud Firestore
+Ptoject akhir mata kuliah Pemrograman Mobile
 
 ## Getting Started
 
