@@ -1,6 +1,6 @@
-# tugasbesar
+# Firebase Authentication with Cloud Firestore
 
-A new Flutter project.
+Ptoject akhir mata kuliah Pemrograman Mobile
 
 ## Getting Started
 
