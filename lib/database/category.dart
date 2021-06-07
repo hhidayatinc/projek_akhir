@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:tugasbesar/database/note.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _mainCollection = _firestore.collection('notes');
@@ -60,9 +61,11 @@ class Category {
     DocumentReference documentReferencer =
         _mainCollection.doc(userUid).collection('categorys').doc(docId);
 
+
     await documentReferencer
         .delete()
         .whenComplete(() => print('Category deleted from the database'))
         .catchError((e) => print(e));
+
   }
 }

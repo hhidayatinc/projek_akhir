@@ -27,52 +27,15 @@ class AddNoteFormState extends State<AddNoteForm> {
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descController = TextEditingController();
   DateTime _chooseDate = DateTime.now();
-  // CollectionReference _category =
-  //     FirebaseFirestore.instance.collection('category');
+  var selectedCategory;
   
-  // List <Category> data;
-  // List<String> dataText;
-  // int index = 0;
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
   final _formNoteKey = GlobalKey<FormState>();
   
-  // Future<void> readData() async {
-  //   FirebaseFirestore.instance.collection("notes").doc().collection("categorys").get().then((QuerySnapshot querySnapshot){
-  //     querySnapshot.docs.forEach((doc) {
-  //       data.add(doc["categoryName"]);
-  //       print(doc["categoryName"]);
-  //       for (int i = 0; i<data.length; i++){
-  //         dataText.add(data[i].toString());
-  //       }
-  //      });
-  //   });
-
-  // }
-  
-  // Future<void> readData({
-  //   String uid,
-  // }) async {
-  //   FirebaseFirestore.instance.collection('categorys/').get().then((value) {
-  //     value.docs.forEach((element) {
-  //       data.add(element['idDocument']);
-  //      });
-  //   });
-  // }
-
-  // void clearInputText() {
-  //   categoryController.text = "";
-  //   titleController.text = "";
-  //   descController.text = "";
-  //   _chooseDate == null;
-  // }
-  
   
   @override
-  // void initState(){
-  //   super.initState();
-  //   readData();
-  // }
+  
   Widget build(BuildContext context) {
     //Size size = MediaQuery.of(context).size;
     return Form(
@@ -102,37 +65,53 @@ class AddNoteFormState extends State<AddNoteForm> {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: kPrimaryColor, width: 1),
                       ),
-                      child: 
-                      // DropdownButton(
-                      //   items: dataText.map((String value) {
-                      //     return DropdownMenuItem(value: value, child: Text(value),
-                      //     );
-                      //   }).toList(),
-                      //   value: dataText[index],
-                      //   onChanged: (String value){
-                      //     int i = dataText.indexOf(value);
-                      //     setState(() {
-                      //       index = i;
-                      //     });
-                      //   },
-                      // ),
-                      TextFormField(
-                        controller: categoryController,
-                        focusNode: widget.focusCategory,
-                        keyboardType: TextInputType.text,
-                        cursorColor: kPrimaryColor,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(5, 5.0, 5.0, 0),
-                            labelText: "Category",
-                            border: InputBorder.none),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please fill this section';
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: Category.readItems(),
+                        builder: (context, snapshot) {
+                          if(!snapshot.hasData){
+                            const Text("Loading ...");
+                          } else {
+                          List<DropdownMenuItem> currencyCategorys = [];
+                            for(int i=0; i<snapshot.data.docs.length; i++) {
+                              var snap = snapshot.data.docs[i].data();
+                              //String docId = snapshot.data.docs[i].id;
+                              String name = snap['categoryName'];
+                              currencyCategorys.add(
+                                DropdownMenuItem(child: Text(name),
+                                value: "${name}",
+                                )
+                              );
+                            }
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          DropdownButton(
+                            focusNode: widget.focusCategory,
+                            items: currencyCategorys,
+                            onChanged: (currencyValue) {
+                              final snackBar = SnackBar(
+                                content: Text(
+                                  'Selected Category is $currencyValue',
+                                  style: TextStyle(color: kPrimaryLightColor),
+                                ),
+                              );
+                              Scaffold.of(context).showSnackBar(snackBar);
+                              setState(() {
+                                selectedCategory = currencyValue;
+                              });
+                            },
+                            value: selectedCategory,
+                            isExpanded: false,
+                            hint: new Text(
+                              "Choose Category",
+                              style: TextStyle(color: kPrimaryColor),
+                            ),
+                          ),
+                        ],
+                            );
                           }
-                          return null;
                         },
-                        maxLines: 1,
-                      ),
+                        )
                     ),
                     SizedBox(
                       height: 10.0,
@@ -231,7 +210,7 @@ class AddNoteFormState extends State<AddNoteForm> {
                         fillColor: kPrimaryColor,
                         onPressed: () async {
                           await Notes.addContent(
-                              category: categoryController.text,
+                              category: selectedCategory,
                               title: titleController.text,
                               description: descController.text,
                               date: _chooseDate.toString());

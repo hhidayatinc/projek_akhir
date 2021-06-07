@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:tugasbesar/database/category.dart';
 import 'package:tugasbesar/database/note.dart';
 
 class EditNoteForm extends StatefulWidget {
@@ -35,6 +37,7 @@ class EditNoteForm extends StatefulWidget {
   TextEditingController titleController = TextEditingController();
   TextEditingController descController = TextEditingController();
   DateTime _chooseDate = DateTime.now();
+  var selectedCategory;
   final kPrimaryColor = Colors.black;
   final kPrimaryLightColor = Colors.white;
   @override
@@ -76,23 +79,53 @@ class EditNoteForm extends StatefulWidget {
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(color: kPrimaryColor, width: 1),
                       ),
-                      child: TextFormField(
-                        controller: categoryController,
-                        focusNode: widget.focusCategory,
-                        keyboardType: TextInputType.text,
-                        cursorColor: kPrimaryColor,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.fromLTRB(5, 5.0, 5.0, 0),
-                            labelText: "Category",
-                            border: InputBorder.none),
-                        validator: (value) {
-                          if (value.isEmpty) {
-                            return 'Please fill this section';
+                      child: StreamBuilder<QuerySnapshot>(
+                        stream: Category.readItems(),
+                        builder: (context, snapshot) {
+                          if(!snapshot.hasData){
+                            const Text("Loading ...");
+                          } else {
+                          List<DropdownMenuItem> currencyCategorys = [];
+                            for(int i=0; i<snapshot.data.docs.length; i++) {
+                              var snap = snapshot.data.docs[i].data();
+                              //String docId = snapshot.data.docs[i].id;
+                              String name = snap['categoryName'];
+                              currencyCategorys.add(
+                                DropdownMenuItem(child: Text(name),
+                                value: "${name}",
+                                )
+                              );
+                            }
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          DropdownButton(
+                            focusNode: widget.focusCategory,
+                            items: currencyCategorys,
+                            onChanged: (currencyValue) {
+                              final snackBar = SnackBar(
+                                content: Text(
+                                  'Selected Category is $currencyValue',
+                                  style: TextStyle(color: kPrimaryLightColor),
+                                ),
+                              );
+                              Scaffold.of(context).showSnackBar(snackBar);
+                              setState(() {
+                                selectedCategory = currencyValue;
+                              });
+                            },
+                            value: selectedCategory,
+                            isExpanded: false,
+                            hint: new Text(
+                              "Choose Category",
+                              style: TextStyle(color: kPrimaryColor),
+                            ),
+                          ),
+                        ],
+                            );
                           }
-                          return null;
                         },
-                        maxLines: 1,
-                      ),
+                        )
                     ),
                     SizedBox(
                       height: 10.0,
