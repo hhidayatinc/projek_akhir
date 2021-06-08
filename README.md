@@ -1,6 +1,21 @@
 # Firebase Authentication with Cloud Firestore
 
-Ptoject akhir mata kuliah Pemrograman Mobile
+Project akhir mata kuliah Pemrograman Mobile
+
+Contoh Sederhana
+![plot](./img/contoh_sederhana.jpeg)
+
+Login Register
+![plot](./img/login_regis.jpeg)
+
+Drawer
+![plot](./img/drawer.jpeg)
+
+Category
+![plot](./img/category.jpeg)
+
+Note
+![plot](./img/note.jpeg)
 
 ## Getting Started
 
