@@ -6,6 +6,7 @@ import 'package:tugasbesar/pages/login_regis/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:tugasbesar/pages/screen_category/dashboard.dart';
 import 'package:tugasbesar/pages/screen_note/dashboard.dart';
+import 'package:tugasbesar/splashscreen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,14 +21,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Simple Note with Login',
-      //home: 
-      //NotePage(),
-      //KategoriPage()
+      // home: SplashScreenPage(),
+      // NotePage(),
+      // KategoriPage()
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginPage(),
+        '/': (context) => SplashScreenPage(),
         '/home': (context) => DashboardNoteScreen(),
         '/kategori': (context) => DashboardScreen(),
+        
       },
     );
   }

@@ -29,11 +29,12 @@ class MainDrawer extends StatelessWidget {
           }),
       ListTile(
         leading: Icon(Icons.category),
-        title: Text("Kategori"),
+        title: Text("Category"),
         onTap: () {
            Navigator.pushNamed(context, '/kategori');
         },
       ),
+     
       ListTile(
         leading: Icon(Icons.logout),
         title: Text("Logout"),

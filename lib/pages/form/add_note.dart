@@ -60,11 +60,11 @@ class AddNoteFormState extends State<AddNoteForm> {
                     ),
                     Container(
                       padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 10.0),
-                      decoration: BoxDecoration(
-                        color: kPrimaryLightColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: kPrimaryColor, width: 1),
-                      ),
+                      // decoration: BoxDecoration(
+                      //   color: kPrimaryLightColor,
+                      //   borderRadius: BorderRadius.circular(10),
+                      //   border: Border.all(color: kPrimaryColor, width: 1),
+                      // ),
                       child: StreamBuilder<QuerySnapshot>(
                         stream: Category.readItems(),
                         builder: (context, snapshot) {
@@ -209,13 +209,31 @@ class AddNoteFormState extends State<AddNoteForm> {
                         elevation: 5.0,
                         fillColor: kPrimaryColor,
                         onPressed: () async {
-                          await Notes.addContent(
+                          if(selectedCategory != null) {
+                            await Notes.addContent(
                               category: selectedCategory,
                               title: titleController.text,
                               description: descController.text,
                               date: _chooseDate.toString());
                          
                           Navigator.of(context).pop();
+                          } else {
+                            showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                                  title: Text("Message"),
+                                  content: Text("Please choose a category"),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("OK"),
+                                    )
+                                  ],
+                                ));
+                          }
+                          
                         }),
                   ))
             ],

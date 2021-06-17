@@ -41,7 +41,7 @@ class NoteList extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.only(right: 5),
                         child: Text(
-                          category,
+                          category + " -",
                           style: TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 17),
                         ),
